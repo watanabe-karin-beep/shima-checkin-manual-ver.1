@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>【観光協会窓口用】島チェックイン応対フローチャート＆別紙 v1.5</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm 12mm;
+            background-color: #f8fafc;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Segoe UI', sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            font-size: 10pt;
+        }
+        .header {
+            background-color: #0f172a;
+            color: #ffffff;
+            margin: -15mm -12mm 20px -12mm;
+            padding: 20px 15mm;
+            border-bottom: 4px solid #3b82f6;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 16pt;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .roles-box {
+            display: table;
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .role-cell {
+            display: table-cell;
+            width: 50%;
+            padding: 5px 15px;
+        }
+        .role-cell:first-child {
+            border-right: 1px solid #e2e8f0;
+        }
+        .role-title {
+            font-weight: bold;
+            color: #1e3a8a;
+            font-size: 10pt;
+            margin-bottom: 4px;
+        }
+        .role-desc {
+            font-size: 9pt;
+            color: #475569;
+            margin: 0;
+        }
+        .warning-box {
+            background-color: #fff7ed;
+            border: 1px solid #ffedd5;
+            border-left: 4px solid #ea580c;
+            padding: 12px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+        .warning-box h4 {
+            margin: 0 0 4px 0;
+            color: #c2410c;
+            font-size: 10.5pt;
+            font-weight: bold;
+        }
+        .warning-box p {
+            margin: 0;
+            font-size: 9pt;
+            color: #7c2d12;
+        }
+        .section-title {
+            font-size: 12pt;
+            color: #0f172a;
+            border-left: 4px solid #3b82f6;
+            padding-left: 8px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            page-break-after: avoid;
+        }
+        
+        /* Flowchart Layout */
+        .flow-container {
+            width: 100%;
+            margin-bottom: 25px;
+        }
+        .flow-trigger {
+            background-color: #eff6ff;
+            border: 2px solid #3b82f6;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 11pt;
+            color: #1d4ed8;
+            border-radius: 6px;
+            width: 70%;
+            margin: 0 auto;
+        }
+        .flow-arrow-down {
+            text-align: center;
+            font-size: 16pt;
+            color: #94a3b8;
+            margin: 6px 0;
+            line-height: 1;
+        }
+        
+        .branch-table {
+            display: table;
+            width: 100%;
+            border-spacing: 12px 0px;
+            margin: 0 -12px;
+        }
+        .branch-col {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .branch-col.lunch {
+            border-top: 5px solid #0d9488;
+            background-color: #f0fdfa;
+        }
+        .branch-col.dinner {
+            border-top: 5px solid #4f46e5;
+            background-color: #eef2ff;
+        }
+        
+        .branch-header {
+            font-size: 11.5pt;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 12px;
+            text-align: center;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .branch-col.lunch .branch-header { color: #115e59; }
+        .branch-col.dinner .branch-header { color: #3730a3; }
+        
+        .step-box {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .step-num {
+            font-size: 8.5pt;
+            font-weight: bold;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+        .step-text {
+            font-size: 9.5pt;
+            font-weight: bold;
+            color: #1e293b;
+        }
+        .step-desc {
+            font-size: 9pt;
+            color: #475569;
+            margin: 4px 0 0 0;
+            padding-left: 2px;
+        }
+        .talk-quote {
+            background-color: #f8fafc;
+            border-left: 3px solid #cbd5e1;
+            padding: 6px 10px;
+            margin-top: 6px;
+            font-style: italic;
+            font-size: 8.5pt;
+            color: #334155;
+        }
+        .branch-col.lunch .talk-quote {
+            background-color: #f4fbf9;
+            border-left-color: #5eead4;
+            color: #134e4a;
+        }
+        .branch-col.dinner .talk-quote {
+            background-color: #f5f3ff;
+            border-left-color: #c7d2fe;
+            color: #1e1b4b;
+        }
+
+        /* Rules Table */
+        .rules-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #ffffff;
+        }
+        .rules-table th {
+            background-color: #334155;
+            color: #ffffff;
+            font-weight: bold;
+            text-align: left;
+            padding: 8px 12px;
+            font-size: 9pt;
+            border: 1px solid #334155;
+        }
+        .rules-table td {
+            padding: 8px 12px;
+            font-size: 9pt;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        .rules-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            font-size: 8pt;
+            font-weight: bold;
+            border-radius: 4px;
+            color: #ffffff;
+        }
+        .badge.ng { background-color: #ef4444; }
+        .badge.ok { background-color: #10b981; }
+
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 8pt;
+            color: #94a3b8;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 8px;
+        }
+
+        /* Page Break */
+        .page-break {
+            page-break-before: always;
+        }
+
+        /* Appendix Layout */
+        .timeline-box {
+            display: flex;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .time-badge {
+            background: #0f172a;
+            color: #fff;
+            padding: 15px 10px;
+            font-weight: bold;
+            font-size: 11pt;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 210px; /* ★ここで幅を広げました（165px -> 210px） */
+            text-align: center;
+        }
+        .time-badge.late {
+            background: #b91c1c;
+        }
+        .time-badge .main-text {
+            font-size: 11.5pt;
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+        .time-badge .sub-text {
+            font-size: 8pt;
+            font-weight: normal;
+            line-height: 1.3;
+            color: #cbd5e1;
+        }
+        .time-badge.late .sub-text {
+            color: #fca5a5;
+        }
+        
+        .time-content {
+            padding: 15px;
+            flex: 1;
+        }
+        .area-title {
+            font-weight: bold;
+            color: #334155;
+            border-bottom: 1px dashed #cbd5e1;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+        }
+        .shop-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .shop-list li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 5px;
+            font-size: 9.5pt;
+        }
+        .shop-list li::before {
+            content: "•";
+            color: #0d9488;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .shop-note {
+            font-size: 8.5pt;
+            color: #64748b;
+            margin-left: 5px;
+        }
+        .sub-badge {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 8pt;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .alert-mini {
+            background-color: #fef2f2;
+            border: 1px solid #fee2e2;
+            border-left: 3px solid #ef4444;
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 8.5pt;
+            color: #991b1b;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>【観光協会窓口用】島チェックイン 応対フローチャート</h1>
+    </div>
+
+    <div class="roles-box">
+        <div class="role-cell">
+            <div class="role-title">① 観光協会窓口（あなた）の役割</div>
+            <p class="role-desc">ヒアリングを行い、適切なルート（当日昼食の案内、または夕食用の公式LINE）へお客様を誘導・トリアージする。</p>
+        </div>
+        <div class="role-cell">
+            <div class="role-title">② 交流促進課（オンライン）の役割</div>
+            <p class="role-desc">公式LINEを通じ、オンライン上で夕食・翌日以降の個別相談や複雑な予約代行業務を一手に引き受ける。</p>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <h4>⚠️【超重要】空席情報の取り扱いについて</h4>
+        <p>過去に「店舗同士で空席情報を見合える状態になること」への懸念から、飲食店側より一覧化を断られた経緯があります。飲食店の空席カレンダー（一覧表）は<strong>「観光協会内部の秘匿資料」</strong>です。お客様へのURL共有、画面のスマートフォン撮影などは<strong>【現状NG】</strong>です。扱いには細心の注意を払ってください。</p>
+    </div>
+
+    <div class="section-title">窓口応対フローチャート</div>
+
+    <div class="flow-container">
+        <div class="flow-trigger">
+            窓口へのお客様来訪時、最初のヒアリング<br>
+            <span style="font-size: 13pt; color: #1e3a8a;">「いつのお食事をお探しですか？」</span>
+        </div>
+        
+        <div class="flow-arrow-down">▼</div>
+
+        <div class="branch-table">
+            
+            <div class="branch-col lunch">
+                <div class="branch-header">パターン A：【今日の昼食】の場合</div>
+                
+                <div class="step-box">
+                    <div class="step-num">STEP 1</div>
+                    <div class="step-text">手元の案内カレンダーをスタッフが確認</div>
+                    <p class="step-desc">※画面はお客様にだけ見せる、または口頭で伝える形を徹底する（他店情報が映るため）。</p>
+                </div>
+                
+                <div class="flow-arrow-down" style="font-size:12pt; margin:2px 0;">▼</div>
+                
+                <div class="step-box">
+                    <div class="step-num">STEP 2</div>
+                    <div class="step-text">空席状況の案内と即断の促進</div>
+                    <p class="step-desc">お昼は時間・お米の量との勝負です。別紙「当日昼食の店舗案内ガイド」を参照し、ご案内します。</p>
+                    <div class="talk-quote">
+                        「お昼は時間との勝負になりますので、今からすぐに入れるお店をご案内しますね。」
+                    </div>
+                </div>
+
+                <div class="flow-arrow-down" style="font-size:12pt; margin:2px 0;">▼</div>
+
+                <div class="step-box">
+                    <div class="step-num">STEP 3</div>
+                    <div class="step-text">満席時はテイクアウトへ誘導</div>
+                    <p class="step-desc">店内飲食が全滅している場合は、海士の食を楽しめるお弁当等の販売先をすぐに案内します。</p>
+                    <div class="talk-quote">
+                        「現在どのお店舗も満席となっておりますが、〇〇でお弁当（テイクアウト）が購入可能です。いかがでしょうか？」
+                    </div>
+                </div>
+            </div>
+            
+            <div class="branch-col dinner">
+                <div class="branch-header">パターン B：【夕食】または【明日以降】</div>
+                
+                <div class="warning-box" style="margin-bottom: 10px; padding: 8px; background-color: #fff; border-color: #cee2fe; border-left-color: #3b82f6;">
+                    <p style="color: #1e3a8a; font-weight: bold; font-size: 8.5pt;">💡 窓口ではカレンダー確認・予約代行をしない！</p>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-num">STEP 1</div>
+                    <div class="step-text">公式LINEへの誘導に徹する</div>
+                    <p class="step-desc">複雑な夜の予約ルールや空席管理はすべてLINE側の交流促進課へパスします。窓口のQRコードを提示してください。</p>
+                    <div class="talk-quote">
+                        「夕食のご予約や空席状況のご相談は、専門スタッフが公式LINEにて個別に承っております。こちらのQRコードよりご登録をお願いします！」
+                    </div>
+                </div>
+                
+                <div class="flow-arrow-down" style="font-size:12pt; margin:2px 0;">▼</div>
+                
+                <div class="step-box">
+                    <div class="step-num">STEP 2</div>
+                    <div class="step-text">登録を見届けて、窓口応対完了</div>
+                    <p class="step-desc">お客様がLINEを読み込み、メッセージ送信画面に進んだらバトンタッチ成功。窓口業務はここで終了です。</p>
+                    <div class="talk-quote">
+                        「ありがとうございます。この後、LINE上でスタッフより現在の空席状況やおすすめ店舗のご案内をお送りしますので、お待ちください！」
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="section-title">トラブル・言った言わないを防止する実務ルール</div>
+    <table class="rules-table">
+        <thead>
+            <tr>
+                <th style="width: 20%;">項目</th>
+                <th style="width: 30%;">窓口での対応・案内方法</th>
+                <th style="width: 50%;">理由・背景（なぜ行うのか）</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>カレンダーの提示</strong></td>
+                <td><span class="badge ng">NG</span> お客様へURLを送る・写真撮影させる<br><span class="badge ok">OK</span> スタッフが手元で見て口頭案内する</td>
+                <td>飲食店同士が互いの空席情報を見合うことへの懸念に配慮するため。信頼関係を維持するための最重要事項。</td>
+            </tr>
+            <tr>
+                <td><strong>夕食予約の確定連絡</strong></td>
+                <td>窓口で口頭のみの確定は絶対にしない。<br>「公式LINEで確定メッセージが届きます」と案内する。</td>
+                <td>過去に「言った言わない」のトラブルが発生。LINEに店舗名と予約時間をテキストで残すことで証拠化します。</td>
+            </tr>
+            <tr>
+                <td><strong>個人情報の管理</strong></td>
+                <td>「公式LINEでお預かりする個人情報は、予約確認と緊急キャンセル連絡のみに使用します」と伝える。</td>
+                <td>観光客の不安払拭のため。営業DMなどには一切使用せず、本取り組みが終了した時点で完全に破棄するルールです。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+    
+    <div class="header">
+        <h1>【別紙】当日昼食の店舗案内ガイド（6月1日〜10月31日）</h1>
+    </div>
+
+    <div class="warning-box" style="margin-bottom: 20px;">
+        <h4>📝 案内の大前提ルール</h4>
+        <p>必ず<strong>「カレンダーで当日の営業日（定休日でないか）」</strong>を確認してからご案内してください。<br>
+        13:00を過ぎて到着されたお客様は、13:25発の中里地区行きバスに乗っても中里地区の飲食店の昼営業終了（L.O.）に<strong>間に合いません。</strong>そのため、中里地区へのバス案内項目は除外しています。</p>
+    </div>
+
+    <div class="timeline-box">
+        <div class="time-badge">
+            <div class="main-text">13:00までに来店可能な方</div>
+            <div class="sub-text">（島内移動・他島からの到着など）</div>
+        </div>
+        <div class="time-content">
+            <p style="margin-top:0; font-size: 9.5pt; color: #475569;">ほぼすべてのランチ営業店舗が選択肢に入ります。お客様の希望エリアに合わせて案内してください。</p>
+            
+            <div class="area-title">中里地区（バスや車で移動）をご希望の場合</div>
+            <ul class="shop-list" style="margin-bottom: 12px;">
+                <li>茶蘭花 <span class="shop-note">（13:00 L.O）</span></li>
+                <li>華蘭 <span class="shop-note">（13:30 L.O）</span></li>
+                <li>離島キッチン海士 <span class="shop-note">（14:00 L.O）</span></li>
+            </ul>
+
+            <div class="area-title">港周辺をご希望の場合</div>
+            <ul class="shop-list">
+                <li>その他、当日営業している港周辺の店舗をご案内ください。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline-box">
+        <div class="time-badge late">
+            <div class="main-text">13:00を過ぎている方</div>
+            <div class="sub-text">（本土からの到着便 13:10着 など）</div>
+        </div>
+        <div class="time-content">
+            <p style="margin-top:0; font-size: 9.5pt; color: #475569; font-weight: bold; color: #b91c1c;">
+                中里地区の通常店舗は昼営業に間に合わないため、原則【港周辺（徒歩移動）】で案内します。
+            </p>
+            
+            <div style="background: #f1f5f9; padding: 10px; border-radius: 4px; margin-bottom: 12px;">
+                <div class="sub-badge" style="background: #0ea5e9;">港周辺・徒歩で移動できる店舗・キッチンカー</div>
+                <ul class="shop-list" style="margin-bottom: 8px;">
+                    <li>船渡来流亭 <span class="shop-note">（14:30 L.O）※一番確実ですが、営業時間が変更されている可能性あり</span></li>
+                    <li>隠岐牛店 <span class="shop-note">（13:30 L.O）</span></li>
+                    <li>離島キッチン海士 <span class="shop-note">（14:00 L.O）※非常にタイト。事前連絡の後、13:25のバスに乗るよう強く案内すること。</span></li>
+                </ul>
+            </div>
+
+            <div style="background: #fdf2f8; padding: 10px; border: 1px solid #fbcfe8; border-radius: 4px; border-left: 4px solid #db2777;">
+                <div class="sub-badge" style="background: #db2777;">【土日限定・唯一の特例】中里地区への案内</div>
+                <p style="margin: 4px 0; font-size: 9.5pt; font-weight: bold; color: #9d174d;">離島キッチン海士 <span class="shop-note" style="color: #9d174d;">（14:00 L.O）</span></p>
+                <p style="margin: 0 0 8px 0; font-size: 9pt; color: #4c0519;">
+                    土日に限り、13:25発のバス移動でも唯一ランチ営業（14:00 L.O）に間に合います。
+                </p>
+                <div class="alert-mini">
+                    <strong>⚠️ 窓口スタッフ必須アクション：</strong><br>
+                    お客様が離島キッチンへ向かわれることが決定したら、<strong>船が港に到着してすぐ（その場）で、速やかに店舗へ「来店人数」を電話連絡・共有</strong>してください！
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-box">
+        <div class="time-badge" style="background: #64748b;">
+            <div class="main-text">満席・営業終了全滅の場合</div>
+            <div class="sub-text">（14:00以降など）</div>
+        </div>
+        <div class="time-content">
+            <div class="area-title">テイクアウト・軽食への誘導</div>
+            <p style="margin-top:5px; font-size: 9.5pt;">店内飲食が逆転不可能な場合は、速やかに商店等での軽食購入をご案内します。</p>
+            <div class="talk-quote" style="background-color: #f8fafc; border-left-color: #94a3b8; color: #475569;">
+                「現在、お食事処はランチ営業を終了（または満席）しております。＜店舗名＞さんでお弁当のテイクアウトができますがいかがでしょうか？」
+            </div>
+            <div style="font-weight: bold; font-size: 9.5pt; color: #334155; margin-bottom: 4px; margin-top: 12px;">▼ 営業時間が長いテイクアウト専門店</div>
+            <ul class="shop-list">
+                <li>キッチンカー <span class="shop-note">（11:00~19:00通し営業）</span></li>
+                <li>うちのごはん <span class="shop-note">（11:30~18:15 / 木・金のみ営業）</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 島チェックイン運営プロジェクト（観光協会×交流促進課） 窓口用クイックマニュアル v1.5
+    </div>
+
+</body>
+</html>
